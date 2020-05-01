@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>SQLite_Demo</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="DemoSQLiteDb.db" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="DemoSQLiteDb.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Data.SQLite" Version="1.0.112.2" />
+  </ItemGroup>
+
+</Project>
