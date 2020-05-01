@@ -31,7 +31,27 @@ namespace SQLite_Demo
             };
             return ExecuteWrite(query, args);
         }
+        private static int DeletePerson(Person person)
+        {
+            var query = "DELETE FROM Person WHERE Id = @id";
+            var args = new Dictionary<string, object>
+            {
+                {"@id",person.Id }
+            };
+            return ExecuteWrite(query, args);
+        }
 
+        private static int UpdatePerson(Person person)
+        {
+            var query = " UPDATE Person SET FirstName = @firstname, LastName = @lastName, DoB = @dob WHERE Id = @id";
+            var args = new Dictionary<string, object>
+            {
+                {"@firstName",person.FirstName },
+                {"@lastName",person.LastName },
+                {"@dob",person.DoB }
+            };
+            return ExecuteWrite(query, args);
+        }
         private static Person GetPersonById(int id)
         {
             var query = "SELECT Id,FirstName, LastName, DoB FROM Person WHERE Id = @id";
