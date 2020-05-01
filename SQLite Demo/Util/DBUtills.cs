@@ -6,12 +6,12 @@ using System.Text;
 
 namespace SQLite_Demo
 {
-    public static class DBUtills
+    public class DBUtills : IDBUtills
     {
         //TODO Add ConfigFile for Connectionstring
-        private static readonly string Connectionstring = "Data Source=.\\DemoSQLiteDb.db ";
+        private readonly string Connectionstring = "Data Source=.\\DemoSQLiteDb.db ";
 
-        public static DataTable ExecuteRead(string query, Dictionary<string, object> args = null)
+        public DataTable ExecuteRead(string query, Dictionary<string, object> args = null)
         {
             if (string.IsNullOrEmpty(query.Trim()))
                 return null;
@@ -28,7 +28,7 @@ namespace SQLite_Demo
             return dt;
         }
 
-        public static int ExecuteWrite(string query, Dictionary<string, object> args = null)
+        public int ExecuteWrite(string query, Dictionary<string, object> args = null)
         {
             using var con = new SQLiteConnection(Connectionstring);
             con.Open();
@@ -38,7 +38,7 @@ namespace SQLite_Demo
             return cmd.ExecuteNonQuery();
         }
 
-        public static SQLiteCommand CreateCommandWithParameters(string query, SQLiteConnection con, Dictionary<string, object> args = null)
+        private SQLiteCommand CreateCommandWithParameters(string query, SQLiteConnection con, Dictionary<string, object> args = null)
         {
             var cmd = new SQLiteCommand(query, con);
             if (args != null)

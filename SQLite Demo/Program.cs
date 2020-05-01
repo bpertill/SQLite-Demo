@@ -3,21 +3,31 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Data.SQLite;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace SQLite_Demo
 {
-    class Program
+    public class Program
     {
-        private static PersonService _personService;
+        private static IServiceProvider _services;
         static void Main(string[] args)
         {
-            _personService = new PersonService();
+            ConfigureServices();
 
-            foreach (var person in _personService.GetPeople())
+            var personService = _services.GetService<IPersonService>();
+            foreach (var person in personService.GetPeople())
             {
                 Console.WriteLine(person.ToString());
             }
             Console.ReadLine();
+        }
+        public static void ConfigureServices()
+        {
+            _services = new ServiceCollection()
+                .AddSingleton<IDBUtills, DBUtills>()
+                .AddSingleton<IPersonService, PersonService>()
+                .BuildServiceProvider();
         }
     }
 }

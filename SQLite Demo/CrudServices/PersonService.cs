@@ -5,8 +5,14 @@ using System.Text;
 
 namespace SQLite_Demo
 {
-    public class PersonService
+    public class PersonService : IPersonService
     {
+        private readonly IDBUtills _dBUtills;
+        public PersonService(IDBUtills dBUtills)
+        {
+            _dBUtills = dBUtills;
+        }
+
         public int AddPerson(Person person)
         {
             var query = "INSERT INTO Person(FirstName,LastName, DoB) VALUES (@firstName, @lastName, @dob)";
@@ -16,7 +22,7 @@ namespace SQLite_Demo
                 {"@lastName",person.LastName },
                 {"@dob",person.DoB }
             };
-            return DBUtills.ExecuteWrite(query, args);
+            return _dBUtills.ExecuteWrite(query, args);
         }
         public int DeletePerson(Person person)
         {
@@ -25,7 +31,7 @@ namespace SQLite_Demo
             {
                 {"@id",person.Id }
             };
-            return DBUtills.ExecuteWrite(query, args);
+            return _dBUtills.ExecuteWrite(query, args);
         }
 
         public int UpdatePerson(Person person)
@@ -37,7 +43,7 @@ namespace SQLite_Demo
                 {"@lastName",person.LastName },
                 {"@dob",person.DoB }
             };
-            return DBUtills.ExecuteWrite(query, args);
+            return _dBUtills.ExecuteWrite(query, args);
         }
         public Person GetPersonById(int id)
         {
@@ -48,7 +54,7 @@ namespace SQLite_Demo
                 {"@id",id }
             };
 
-            DataTable dt = DBUtills.ExecuteRead(query, args);
+            DataTable dt = _dBUtills.ExecuteRead(query, args);
             if (dt == null || dt.Rows.Count == 0)
             {
                 return null;
@@ -68,7 +74,7 @@ namespace SQLite_Demo
         public List<Person> GetPeople()
         {
             var query = "SELECT Id,FirstName, LastName, DoB FROM Person";
-            DataTable dt = DBUtills.ExecuteRead(query);
+            DataTable dt = _dBUtills.ExecuteRead(query);
             if (dt == null || dt.Rows.Count == 0)
             {
                 return null;
@@ -87,6 +93,5 @@ namespace SQLite_Demo
             }
             return people;
         }
-
     }
 }
