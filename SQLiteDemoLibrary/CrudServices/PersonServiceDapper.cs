@@ -31,7 +31,7 @@ namespace SQLiteLibrary.CrudServices
         public Person GetPersonById(int id)
         {
             using IDbConnection con = new SQLiteConnection(Util.LoadConnectionString());
-            return con.QueryFirst<Person>("SELECT Id,FirstName, LastName, DoB FROM Person WHERE Id = @Id", new {Id = id });
+            return con.Query<Person>("SELECT Id,FirstName, LastName, DoB FROM Person WHERE Id = @Id", new {Id = id }).FirstOrDefault();
         }
 
         public int UpdatePerson(Person person)
