@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SQLiteDemoLibrary\SQLiteDemoLibrary.csproj" />
+    <ProjectReference Include="..\SQLiteDemoLibrary\SQLiteLibrary.csproj" />
   </ItemGroup>
 
 </Project>

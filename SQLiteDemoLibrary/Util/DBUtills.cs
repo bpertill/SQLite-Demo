@@ -4,7 +4,7 @@ using System.Data;
 using System.Data.SQLite;
 using System.Text;
 
-namespace SQLiteDemoLibrary
+namespace SQLiteLibrary
 {
     public class DBUtills : IDBUtills
     {

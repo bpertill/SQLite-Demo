@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Text;
 
-namespace SQLiteDemoLibrary
+namespace SQLiteLibrary
 {
     public class PersonService : IPersonService
     {

@@ -5,8 +5,8 @@ using System.Linq;
 using System.Data.SQLite;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using SQLiteDemoLibrary;
-namespace SQLite_Demo
+using SQLiteLibrary;
+namespace SQLiteConsoleApplication
 {
     public class Program
     {

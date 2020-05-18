@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SQLiteDemoLibrary
+namespace SQLiteLibrary
 {
     public static class Util
     {
