@@ -5,7 +5,7 @@ using System.Linq;
 using System.Data.SQLite;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-
+using SQLiteDemoLibrary;
 namespace SQLite_Demo
 {
     public class Program
@@ -13,7 +13,7 @@ namespace SQLite_Demo
         private static IServiceProvider _services;
         static void Main(string[] args)
         {
-            ConfigureServices();
+            _services= Util.ConfigureServices();
 
             var personService = _services.GetService<IPersonService>();
             foreach (var person in personService.GetPeople())
@@ -21,13 +21,6 @@ namespace SQLite_Demo
                 Console.WriteLine(person.ToString());
             }
             Console.ReadLine();
-        }
-        public static void ConfigureServices()
-        {
-            _services = new ServiceCollection()
-                .AddSingleton<IDBUtills, DBUtills>()
-                .AddSingleton<IPersonService, PersonService>()
-                .BuildServiceProvider();
         }
     }
 }

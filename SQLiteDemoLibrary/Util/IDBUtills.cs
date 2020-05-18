@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 
-namespace SQLite_Demo
+namespace SQLiteDemoLibrary
 {
     public interface IDBUtills
     {

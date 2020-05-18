@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SQLite_Demo
+namespace SQLiteDemoLibrary
 {
     public interface IPersonService
     {

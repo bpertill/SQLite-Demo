@@ -7,19 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="DemoSQLiteDb.db" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="DemoSQLiteDb.db">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.3" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.3" />
+    <PackageReference Include="Dapper" Version="2.0.35" />
     <PackageReference Include="System.Data.SQLite" Version="1.0.112.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SQLiteDemoLibrary\SQLiteDemoLibrary.csproj" />
   </ItemGroup>
 
 </Project>

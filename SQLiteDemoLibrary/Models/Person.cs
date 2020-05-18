@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SQLite_Demo
+namespace SQLiteDemoLibrary
 {
     public class Person
     {
