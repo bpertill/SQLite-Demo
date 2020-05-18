@@ -2,8 +2,11 @@
 using System.Configuration;
 using System.Data;
 
-namespace SQLiteLibrary
+namespace SQLiteLibrary.CrudServices
 {
+    /// <summary>
+    /// Only needed if Dapper is not used
+    /// </summary>
     public interface IDBUtills
     {
 

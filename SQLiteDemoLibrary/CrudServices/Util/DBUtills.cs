@@ -5,19 +5,16 @@ using System.Data;
 using System.Data.SQLite;
 using System.Text;
 
-namespace SQLiteLibrary
+namespace SQLiteLibrary.CrudServices
 {
     public class DBUtills : IDBUtills
     {
         public DBUtills()
         {
-            Connectionstring = LoadConnectionString();
+            Connectionstring = Util.LoadConnectionString();
         }
         private readonly string Connectionstring;
-        private string LoadConnectionString(string id = "Default")
-        {
-            return ConfigurationManager.ConnectionStrings[id].ConnectionString;
-        }
+    
         public DataTable ExecuteRead(string query, Dictionary<string, object> args = null)
         {
             if (string.IsNullOrEmpty(query.Trim()))

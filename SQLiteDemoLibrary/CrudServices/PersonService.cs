@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Text;
 
-namespace SQLiteLibrary
+namespace SQLiteLibrary.CrudServices
 {
     public class PersonService : IPersonService
     {
@@ -36,7 +36,7 @@ namespace SQLiteLibrary
 
         public int UpdatePerson(Person person)
         {
-            var query = " UPDATE Person SET FirstName = @firstname, LastName = @lastName, DoB = @dob WHERE Id = @id";
+            var query = "UPDATE Person SET FirstName = @firstname, LastName = @lastName, DoB = @dob WHERE Id = @id";
             var args = new Dictionary<string, object>
             {
                 {"@firstName",person.FirstName },

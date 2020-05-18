@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SQLiteLibrary
+namespace SQLiteLibrary.CrudServices
 {
     public interface IPersonService
     {
