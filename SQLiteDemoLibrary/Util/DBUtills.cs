@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SQLite;
 using System.Text;
@@ -8,9 +9,15 @@ namespace SQLiteLibrary
 {
     public class DBUtills : IDBUtills
     {
-        //TODO Add ConfigFile for Connectionstring
-        private readonly string Connectionstring = "Data Source=.\\DemoSQLiteDb.db ";
-
+        public DBUtills()
+        {
+            Connectionstring = LoadConnectionString();
+        }
+        private readonly string Connectionstring;
+        private string LoadConnectionString(string id = "Default")
+        {
+            return ConfigurationManager.ConnectionStrings[id].ConnectionString;
+        }
         public DataTable ExecuteRead(string query, Dictionary<string, object> args = null)
         {
             if (string.IsNullOrEmpty(query.Trim()))

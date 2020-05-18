@@ -9,6 +9,11 @@ namespace SQLiteLibrary
     {
         public static IServiceProvider ConfigureServices()
         {
+           IDBUtills dbu = new DBUtills();
+            DBUtills dbu2 = new DBUtills();
+
+            dbu.LoadConnectionString();
+            ((IDBUtills)dbu2).LoadConnectionString();
            return new ServiceCollection()
                 .AddSingleton<IDBUtills, DBUtills>()
                 .AddSingleton<IPersonService, PersonService>()
