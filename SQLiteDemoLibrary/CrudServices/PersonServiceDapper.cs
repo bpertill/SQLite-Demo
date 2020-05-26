@@ -17,7 +17,7 @@ namespace SQLiteLibrary.CrudServices
             _configuration = configuration;
         }
 
-
+        //Todo change everything to async
         public int AddPerson(Person person)
         {
             using IDbConnection con = new SQLiteConnection(_configuration.GetConnectionString("Default"));
