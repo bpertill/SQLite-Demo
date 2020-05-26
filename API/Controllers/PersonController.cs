@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using SQLiteLibrary;
+using SQLiteLibrary.CrudServices;
 
 namespace API.Controllers
 {
@@ -14,16 +16,20 @@ namespace API.Controllers
     {
 
         private readonly ILogger<PersonController> _logger;
+        private readonly IPersonService _personService;
 
-        public PersonController(ILogger<PersonController> logger)
+        public PersonController(ILogger<PersonController> logger, IPersonService personService)
         {
             _logger = logger;
+            _personService = personService;
         }
 
         [HttpGet]
-        public Person Get()
+        [Route("{id}")]
+        public Person Get(int id)
         {
-            return  new Person { Id = 1, DoB = new DateTime(1991, 04, 18), FirstName = "myfirstname", LastName = "mylastname" } ;
+            var result = _personService.GetPersonById(id);
+            return result;
         }
     }
 }

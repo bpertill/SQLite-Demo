@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -9,12 +10,12 @@ namespace SQLiteLibrary.CrudServices
 {
     public class DBUtills : IDBUtills
     {
-        public DBUtills()
+        public DBUtills(IConfiguration config)
         {
-            Connectionstring = Util.LoadConnectionString();
+            Connectionstring = config.GetConnectionString("Default");
         }
         private readonly string Connectionstring;
-    
+
         public DataTable ExecuteRead(string query, Dictionary<string, object> args = null)
         {
             if (string.IsNullOrEmpty(query.Trim()))
