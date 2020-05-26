@@ -33,7 +33,7 @@ namespace API.Controllers
         {
             if (id == 0) return BadRequest();
 
-            var person = _personService.GetPersonById(id);
+            var person = await _personService.GetPersonById(id);
 
             if (person != null) return Ok(person);
             return NotFound();
@@ -45,7 +45,7 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAll()
         {
-            var people = _personService.GetPeople();
+            var people = await _personService.GetPeople();
 
             if (people != null) return Ok(people);
             return NotFound();
@@ -58,7 +58,7 @@ namespace API.Controllers
 
         public async Task<IActionResult> Post(Person person)
         {
-            var id = _personService.AddPerson(person);
+            var id = await _personService.AddPerson(person);
             return Ok(new { Id = id });
         }
         [HttpPut]
@@ -66,7 +66,7 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Put([FromBody] Person person)
         {
-            _personService.UpdatePerson(person);
+            await _personService.UpdatePerson(person);
             return Ok();
         }
         [HttpDelete("{id}")]
@@ -74,7 +74,7 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Delete(int id)
         {
-            var deletedPeople = _personService.DeletePerson(new Person { Id = id });
+            var deletedPeople = await _personService.DeletePerson(new Person { Id = id });
             if(deletedPeople > 0) return Ok();
             return BadRequest();
         }

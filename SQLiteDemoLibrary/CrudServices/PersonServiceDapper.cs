@@ -6,6 +6,7 @@ using System.Data;
 using System.Data.SQLite;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace SQLiteLibrary.CrudServices
 {
@@ -17,35 +18,36 @@ namespace SQLiteLibrary.CrudServices
             _configuration = configuration;
         }
 
-        //Todo change everything to async
-        public int AddPerson(Person person)
+        public async Task<int> AddPerson(Person person)
         {
             using IDbConnection con = new SQLiteConnection(_configuration.GetConnectionString("Default"));
-            return con.Execute("INSERT INTO Person(FirstName, LastName, DoB) VALUES (@FirstName, @LastName, @Dob)",person);
+            return await con.ExecuteAsync("INSERT INTO Person(FirstName, LastName, DoB) VALUES (@FirstName, @LastName, @Dob)",person);
         }
 
-        public int DeletePerson(Person person)
+        public async Task<int> DeletePerson(Person person)
         {
             using IDbConnection con = new SQLiteConnection(_configuration.GetConnectionString("Default"));
-            return con.Execute("DELETE FROM Person WHERE Id = @Id", person);
+            return await con.ExecuteAsync("DELETE FROM Person WHERE Id = @Id", person);
         }
 
-        public List<Person> GetPeople()
+        public async Task<IEnumerable<Person>> GetPeople()
         {
             using IDbConnection con = new SQLiteConnection(_configuration.GetConnectionString("Default"));
-            return con.Query<Person>("SELECT Id, FirstName, LastName, DoB FROM Person").ToList();
+            var output = await con.QueryAsync<Person>("SELECT Id, FirstName, LastName, DoB FROM Person");
+            return output;
         }
 
-        public Person GetPersonById(int id)
+        public async Task<Person> GetPersonById(int id)
         {
             using IDbConnection con = new SQLiteConnection(_configuration.GetConnectionString("Default"));
-            return con.Query<Person>("SELECT Id,FirstName, LastName, DoB FROM Person WHERE Id = @Id", new {Id = id }).FirstOrDefault();
+            var output = await con.QueryAsync<Person>("SELECT Id,FirstName, LastName, DoB FROM Person WHERE Id = @Id", new { Id = id });
+            return output.FirstOrDefault();
         }
-
-        public int UpdatePerson(Person person)
+        
+        public async Task<int> UpdatePerson(Person person)
         {
             using IDbConnection con = new SQLiteConnection(_configuration.GetConnectionString("Default"));
-            return con.Execute("UPDATE Person SET FirstName = @firstname, LastName = @lastName, DoB = @dob WHERE Id = @Id", person);
+            return await con.ExecuteAsync("UPDATE Person SET FirstName = @firstname, LastName = @lastName, DoB = @dob WHERE Id = @Id", person);
         }
     }
 }

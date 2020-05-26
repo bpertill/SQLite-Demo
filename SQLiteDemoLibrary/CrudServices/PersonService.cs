@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace SQLiteLibrary.CrudServices
 {
@@ -13,7 +14,7 @@ namespace SQLiteLibrary.CrudServices
             _dBUtills = dBUtills;
         }
 
-        public int AddPerson(Person person)
+        public async Task<int> AddPerson(Person person)
         {
             var query = "INSERT INTO Person(FirstName,LastName, DoB) VALUES (@firstName, @lastName, @dob)";
             var args = new Dictionary<string, object>
@@ -22,9 +23,9 @@ namespace SQLiteLibrary.CrudServices
                 {"@lastName",person.LastName },
                 {"@dob",person.DoB }
             };
-            return _dBUtills.ExecuteWrite(query, args);
+            return await _dBUtills.ExecuteWrite(query, args);
         }
-        public int DeletePerson(Person person)
+        public Task<int> DeletePerson(Person person)
         {
             var query = "DELETE FROM Person WHERE Id = @id";
             var args = new Dictionary<string, object>
@@ -34,7 +35,7 @@ namespace SQLiteLibrary.CrudServices
             return _dBUtills.ExecuteWrite(query, args);
         }
 
-        public int UpdatePerson(Person person)
+        public Task<int> UpdatePerson(Person person)
         {
             var query = "UPDATE Person SET FirstName = @firstname, LastName = @lastName, DoB = @dob WHERE Id = @id";
             var args = new Dictionary<string, object>
@@ -45,7 +46,7 @@ namespace SQLiteLibrary.CrudServices
             };
             return _dBUtills.ExecuteWrite(query, args);
         }
-        public Person GetPersonById(int id)
+        public async Task<Person> GetPersonById(int id)
         {
             var query = "SELECT Id,FirstName, LastName, DoB FROM Person WHERE Id = @id";
 
@@ -54,7 +55,7 @@ namespace SQLiteLibrary.CrudServices
                 {"@id",id }
             };
 
-            DataTable dt = _dBUtills.ExecuteRead(query, args);
+            DataTable dt = await _dBUtills.ExecuteRead(query, args);
             if (dt == null || dt.Rows.Count == 0)
             {
                 return null;
@@ -71,10 +72,10 @@ namespace SQLiteLibrary.CrudServices
             return person;
         }
 
-        public List<Person> GetPeople()
+        public async Task<IEnumerable<Person>> GetPeople()
         {
             var query = "SELECT Id,FirstName, LastName, DoB FROM Person";
-            DataTable dt = _dBUtills.ExecuteRead(query);
+            DataTable dt = await _dBUtills.ExecuteRead(query);
             if (dt == null || dt.Rows.Count == 0)
             {
                 return null;
